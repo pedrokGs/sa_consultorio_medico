@@ -127,7 +127,7 @@ class _ConsultationsAddPageState extends State<ConsultationsAddPage> {
                         ),
                       ),
                       validator: (value) =>
-                          value!.isEmpty ? "Campo não Preenchido!!!" : null,
+                          value!.length < 4 ? "O tipo deve ter pelo menos 4 caractéres" : null,
                       onSaved: (value) => tipoServico = value!,
                     ),
                     SizedBox(height: 24),

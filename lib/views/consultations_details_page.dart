@@ -35,7 +35,7 @@ class _ConsultationsDetailsPageState extends State<ConsultationsDetailsPage> {
     try {
       _consulta = await _controllerConsultas.findConsultaById(widget.consultaId);
       if (_consulta != null) {
-        _paciente = await _controllerPacientes.findPacienteById(_consulta!.pacienteId!);
+        _paciente = await _controllerPacientes.findPacienteById(_consulta!.pacienteId);
       }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(

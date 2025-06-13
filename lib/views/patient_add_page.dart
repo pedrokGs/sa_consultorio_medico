@@ -84,7 +84,7 @@ class _PatientAddPageState extends State<PatientAddPage> {
       appBar: CustomAppBar(
         title: "Adicionar Paciente",
         automaticallyImplyLeading: true,
-        backButton: true
+        backButton: true,
       ),
       drawer: CustomDrawer(),
 
@@ -105,8 +105,11 @@ class _PatientAddPageState extends State<PatientAddPage> {
                           borderRadius: BorderRadius.circular(10),
                         ),
                       ),
-                      validator: (value) =>
-                          value!.isEmpty ? "Campo não Preenchido!!!" : null,
+                      validator: (value) {
+                        return value!.length < 3
+                            ? "Digite um nome válido com pelo menos 3 caracteres"
+                            : null;
+                      },
                       onSaved: (value) => _nome = value!,
                     ),
                     SizedBox(height: 24),
@@ -117,8 +120,17 @@ class _PatientAddPageState extends State<PatientAddPage> {
                           borderRadius: BorderRadius.circular(10),
                         ),
                       ),
-                      validator: (value) =>
-                          value!.isEmpty ? "Campo não Preenchido!!!" : null,
+                      validator: (value) {
+                        String pattern = r'^\d{3}\.\d{3}\.\d{3}-\d{2}$';
+                        RegExp regex = RegExp(pattern);
+                        if (value!.isEmpty) {
+                          return "Campo não Preenchido!!!";
+                        } else if (!regex.hasMatch(value)) {
+                          return "CPF inválido";
+                        }
+                        return null;
+                      },
+
                       onSaved: (value) => _cpf = value!,
                     ),
                     SizedBox(height: 24),
@@ -129,8 +141,15 @@ class _PatientAddPageState extends State<PatientAddPage> {
                           borderRadius: BorderRadius.circular(10),
                         ),
                       ),
-                      validator: (value) =>
-                          value!.isEmpty ? "Campo não Preenchido!!!" : null,
+                      validator: (value) {
+                        String pattern =
+                            r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$';
+                        RegExp regex = RegExp(pattern);
+                        if (value == null || value.isEmpty) {
+                          return "Campo não Preenchido!!!";
+                        }
+                        return regex.hasMatch(value) ? null : "Email inválido";
+                      },
                       onSaved: (value) => _email = value!,
                     ),
 
@@ -173,8 +192,16 @@ class _PatientAddPageState extends State<PatientAddPage> {
                           borderRadius: BorderRadius.circular(10),
                         ),
                       ),
-                      validator: (value) =>
-                          value!.isEmpty ? "Campo não Preenchido!!!" : null,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Telefone não pode ser vazio';
+                        } else if (!RegExp(r'^\+?[0-9\s]+$').hasMatch(value)) {
+                          return 'Telefone inválido';
+                        } else if (value.length < 10 || value.length > 15) {
+                          return 'Telefone deve ter entre 10 e 15 dígitos';
+                        }
+                        return null;
+                      },
                       onSaved: (value) => _contato = value!,
                     ),
                     const SizedBox(height: 20),
@@ -187,7 +214,10 @@ class _PatientAddPageState extends State<PatientAddPage> {
                         ),
                       ),
                       onPressed: _salvarPaciente,
-                      label: const Text("Agendar Consulta", style: TextStyle(color: Colors.green),),
+                      label: const Text(
+                        "Agendar Consulta",
+                        style: TextStyle(color: Colors.green),
+                      ),
                     ),
                   ],
                 ),
