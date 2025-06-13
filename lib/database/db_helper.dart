@@ -124,4 +124,24 @@ class MedPlusDBHelper {
     //delete pelo ID
     return await db.delete("consultas", where: "id = ?", whereArgs: [id]);
   }
+
+  Future<List<Consulta>> getConsultas() async {
+    final db = await database;
+    final List<Map<String, dynamic>> maps = await db.query("consultas");
+    return maps.map((e) => Consulta.fromMap(e)).toList();
+  }
+
+  Future<Consulta?> getConsultaById(int id) async {
+    final db = await database;
+    final List<Map<String, dynamic>> maps = await db.query(
+      "consultas",
+      where: "id = ?",
+      whereArgs: [id],
+    );
+    if (maps.isNotEmpty) {
+      return Consulta.fromMap(maps.first);
+    } else {
+      return null;
+    }
+  }
 }

@@ -4,6 +4,10 @@ import 'package:sa_consultorio/models/consulta.dart';
 class ConsultasController {
   final MedPlusDBHelper _dbHelper = MedPlusDBHelper();
 
+  Future<List<Consulta>> fetchConsultas() async {
+    return await _dbHelper.getConsultas();
+  }
+
   Future<List<Consulta>> getConsultasByPaciente(int pacienteId) async{
     return await _dbHelper.getConsultaForPaciente(pacienteId);
   }
@@ -14,5 +18,9 @@ class ConsultasController {
 
   Future<int> deleteConsulta(int id) async{
     return await _dbHelper.deleteConsulta(id);
+  }
+  
+  Future<Consulta?> findConsultaById(int id) async {
+    return await _dbHelper.getConsultaById(id);
   }
 }

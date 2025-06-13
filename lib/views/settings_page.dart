@@ -16,7 +16,11 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
     return Scaffold(
-      appBar: CustomAppBar(title: "Configurações"),
+      appBar: CustomAppBar(title: "Configurações", actions: BackButton(
+        onPressed: () {
+          Navigator.pushNamed(context, '/');
+        },
+      ),),
       drawer: CustomDrawer(),
       body: Center(
         child: Padding(

@@ -6,7 +6,7 @@ class PacienteController {
   final MedPlusDBHelper _dbHelper = MedPlusDBHelper();
 
 
-  Future<int> addPet(Paciente paciente) async{
+  Future<int> insertPaciente(Paciente paciente) async{
     return await _dbHelper.insertPaciente(paciente);
   }
 

@@ -45,7 +45,10 @@ class _PatientsPageState extends State<PatientsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: "Pacientes"),
+      appBar: CustomAppBar(title: "Pacientes", actions: BackButton(
+        onPressed: () {
+          Navigator.pushNamed(context, '/');
+        },),),
       drawer: CustomDrawer(),
 
       floatingActionButton: FloatingActionButton(
@@ -62,11 +65,11 @@ class _PatientsPageState extends State<PatientsPage> {
         itemBuilder: (context, index) {
                     final paciente = _pacientes[index];
           return ListTile(
+            leading: CircleAvatar(child: Icon(Icons.person),),
             title: Text(paciente.nome),
             subtitle: Text(paciente.cpf),
             onTap: () => Navigator.push(context,
              MaterialPageRoute(builder: (context)=> PatientDetailsPage(pacienteId: paciente.id!)))
-              
           );
         },
       ),
